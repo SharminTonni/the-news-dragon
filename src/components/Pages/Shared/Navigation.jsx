@@ -2,7 +2,18 @@ import React from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
 const Navigation = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Container>
@@ -15,11 +26,17 @@ const Navigation = () => {
             <Nav.Link href="#pricing">Carrer</Nav.Link>
           </Nav>
           <Nav>
-            <FaUser style={{ fontSize: "2rem" }}></FaUser>
+            {user && <FaUser style={{ fontSize: "2rem" }}></FaUser>}
 
-            <Link to="/login">
-              <Button variant="secondary">Login</Button>
-            </Link>
+            {user ? (
+              <Button onClick={handleLogOut} variant="secondary">
+                LogOut
+              </Button>
+            ) : (
+              <Link to="/login">
+                <Button variant="secondary">Login</Button>
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -14,7 +14,7 @@ import Rating from "react-rating";
 
 const NewsCard = ({ news }) => {
   const { _id, title, details, image_url, author, total_view, rating } = news;
-  console.log(_id);
+  // console.log(_id);
   return (
     <div>
       <Card className="mb-4">
